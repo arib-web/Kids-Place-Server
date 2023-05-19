@@ -1,0 +1,66 @@
+[
+  {
+    "picture": "https://img.freepik.com/free-photo/small-red-car-toy-kid-child-playing-with-it_114579-7239.jpg?size=626&ext=jpg&ga=GA1.1.1896889893.1665354643&semt=ais",
+    "name": "Car Toy 1",
+    "price": 19.99,
+    "sub_category": "Car",
+    "rating": 4.2
+  },
+  {
+    "picture": "https://img.freepik.com/free-photo/closeup-shot-small-toy-car-wooden-train-track_181624-32510.jpg?size=626&ext=jpg&ga=GA1.1.1896889893.1665354643&semt=ais",
+    "name": "Car Toy 1",
+    "price": 24.99,
+    "sub_category": "Car",
+    "rating": 4.7
+  },
+  {
+    "picture": "https://img.freepik.com/free-photo/toy-red-car-with-pinecone-top_1252-14.jpg?size=626&ext=jpg&ga=GA1.1.1896889893.1665354643&semt=ais",
+    "name": "Marvel Toy 3",
+    "price": 14.99,
+    "sub_category": "Marvel",
+    "rating": 4.1
+  },
+  {
+    "picture": "https://img.freepik.com/free-photo/red-pickup-model-black-floor_1150-16350.jpg?size=626&ext=jpg&ga=GA1.1.1896889893.1665354643&semt=ais",
+    "name": "Truck Toy 1",
+    "price": 12.99,
+    "sub_category": "Truck",
+    "rating": 3.9
+  },
+  {
+    "picture": "https://img.freepik.com/free-photo/still-life-colorful-gummy-bears_23-2149870772.jpg?size=626&ext=jpg&ga=GA1.1.1896889893.1665354643&semt=ais",
+    "name": "Truck Toy 2",
+    "price": 29.99,
+    "sub_category": "Truck",
+    "rating": 4.5
+  },
+
+  {
+    "picture": "https://img.freepik.com/free-photo/still-life-colorful-gummy-bears_23-2149870777.jpg?size=626&ext=jpg&ga=GA1.1.1896889893.1665354643&semt=ais",
+    "name": "Truck Toy 3",
+    "price": 21.99,
+    "sub_category": "Truck",
+    "rating": 4.3
+  },
+  {
+    "picture": "https://img.freepik.com/free-photo/autonomous-robot-with-first-aid-kit-is-road_35913-2153.jpg?size=626&ext=jpg&ga=GA1.1.1896889893.1665354643&semt=ais",
+    "name": "Police Car 1",
+    "price": 9.99,
+    "sub_category": "Police",
+    "rating": 3.8
+  },
+  {
+    "picture": "https://img.freepik.com/free-photo/closeup-toy-ambulance-paramedics-helping-patient_181624-47214.jpg?size=626&ext=jpg&ga=GA1.1.1896889893.1665354643&semt=ais",
+    "name": "Police Car 2",
+    "price": 16.99,
+    "sub_category": "Police",
+    "rating": 4.0
+  },
+  {
+    "picture": "https://img.freepik.com/free-photo/closeup-old-mini-police-car-toy_181624-45993.jpg?size=626&ext=jpg&ga=GA1.1.1896889893.1665354643&semt=ais",
+    "name": "Police Car Antique",
+    "price": 11.99,
+    "sub_category": "Police",
+    "rating": 3.7
+  }
+]
