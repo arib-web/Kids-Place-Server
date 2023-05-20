@@ -9,7 +9,6 @@ const port = process.env.PORT || 5000;
 // middlewware 
 app.use(express.json())
 app.use(cors())
-console.log(process.env.DB_Pass);
 
 const uri = `mongodb+srv://${process.env.DB_User}:${process.env.DB_Pass}@cluster0.etpgxye.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -22,25 +21,19 @@ const client = new MongoClient(uri, {
     }
 });
 
+
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect();
 
-        const catagoryCollections = client.db('kidsPlace').collection('catagorys')
-
-        // app.get('/catagory/:text', async (req, res) => {
-        //     if (req.params.text == "car" || eq.params.text == "truck" || eq.params.text == "police") {
-        //         const cursor = catagoryCollections.find({ sub_category: req.params.text });
-        //         const result = await cursor.toArray()
-        //         res.send(result)
-        //     }
-        //     const cursor = catagoryCollections.find();
-        //     const result = await cursor.toArray()
-        //     res.send(result)
+        const catagoryCollections = client.db('kidsPlace').collection('catagorys');
+        const postedToysCollections = client.db('kidsPlace').collection('toys');
 
 
-        // })
+
+
+
         app.get('/catagory/:text', async (req, res) => {
             let cursor;
             if (req.params.text === "car" || req.params.text === "truck" || req.params.text === "police") {
@@ -52,8 +45,15 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result);
         });
+        // for shop category end here
 
-
+        app.post('/toys', async (req, res) => {
+            const body = req.body;
+            console.log(body);
+            const result = await postedToysCollections.insertOne(body);
+            res.send(result);
+            console.log(result);
+        });
 
 
         // Send a ping to confirm a successful connection
@@ -66,6 +66,49 @@ async function run() {
 }
 run().catch(console.dir);
 
+// async function run() {
+//     try {
+//         // Connect the client to the server	(optional starting in v4.7)
+//         await client.connect();
+
+//         
+
+//         app.get('/catagory/:text', async (req, res) => {
+//             let cursor;
+//             if (req.params.text === "car" || req.params.text === "truck" || req.params.text === "police") {
+//                 cursor = catagoryCollections.find({ sub_category: req.params.text });
+//             } else {
+//                 cursor = catagoryCollections.find();
+//             }
+
+//             const result = await cursor.toArray();
+//             res.send(result);
+//         });
+//         // for shop category end here
+
+//         app.post('/toyadded', async (req, res)=>{
+//             const body = req.body;
+//             console.log(body);
+//             const result = await postedToysCollections.insertOne(body);
+//             console.log(result);
+
+//             res.send(result);
+//         });
+//         // for add a toy end here 
+
+
+
+
+//         // Send a ping to confirm a successful connection
+//         await client.db("admin").command({ ping: 1 });
+//         console.log("Pinged your deployment. You successfully connected to MongoDB!");
+//     } finally {
+//         // Ensures that the client will close when you finish/error
+//         // await client.close();
+//     }
+// }
+// run().catch(console.dir);
+
 
 
 
@@ -74,5 +117,5 @@ app.get('/', (req, res) => {
     res.send('Kids Place is running')
 })
 app.listen(port, () => {
-    console.log(`Kids Place is  running on port ${port}`);
+    console.log(`kids place is  running on port ${port}`);
 })
