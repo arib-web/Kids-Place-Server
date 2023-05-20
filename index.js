@@ -56,10 +56,12 @@ async function run() {
         });
         // insert add a toy using form 
         app.get('/toys', async (req, res) => {
-            const cursor = postedToysCollections.find();
-            const result = await cursor.toArray()
-            res.send(result)
-        })
+            const limit = parseInt(req.query.limit) || 20;
+            const cursor = postedToysCollections.find().limit(limit);
+            const result = await cursor.toArray();
+            res.send(result);
+        });
+
         // show add toy in all toy 
 
         // Send a ping to confirm a successful connection
@@ -71,51 +73,6 @@ async function run() {
     }
 }
 run().catch(console.dir);
-
-// async function run() {
-//     try {
-//         // Connect the client to the server	(optional starting in v4.7)
-//         await client.connect();
-
-//         
-
-//         app.get('/catagory/:text', async (req, res) => {
-//             let cursor;
-//             if (req.params.text === "car" || req.params.text === "truck" || req.params.text === "police") {
-//                 cursor = catagoryCollections.find({ sub_category: req.params.text });
-//             } else {
-//                 cursor = catagoryCollections.find();
-//             }
-
-//             const result = await cursor.toArray();
-//             res.send(result);
-//         });
-//         // for shop category end here
-
-//         app.post('/toyadded', async (req, res)=>{
-//             const body = req.body;
-//             console.log(body);
-//             const result = await postedToysCollections.insertOne(body);
-//             console.log(result);
-
-//             res.send(result);
-//         });
-//         // for add a toy end here 
-
-
-
-
-//         // Send a ping to confirm a successful connection
-//         await client.db("admin").command({ ping: 1 });
-//         console.log("Pinged your deployment. You successfully connected to MongoDB!");
-//     } finally {
-//         // Ensures that the client will close when you finish/error
-//         // await client.close();
-//     }
-// }
-// run().catch(console.dir);
-
-
 
 
 
