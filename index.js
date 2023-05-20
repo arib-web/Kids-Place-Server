@@ -54,7 +54,13 @@ async function run() {
             res.send(result);
             console.log(result);
         });
-
+        // insert add a toy using form 
+        app.get('/toys', async (req, res) => {
+            const cursor = postedToysCollections.find();
+            const result = await cursor.toArray()
+            res.send(result)
+        })
+        // show add toy in all toy 
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
