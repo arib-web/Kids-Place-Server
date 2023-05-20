@@ -45,7 +45,21 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result);
         });
-        // for shop category end here
+
+        app.get('/toys', async (req, res) => {
+            console.log(req.query?.seller_email);
+            let query = {};
+            if (req.query?.seller_email) {
+                query = { seller_email: req.query.seller_email }
+            }
+            const limit = parseInt(req.query.limit) || 20; 
+            const result = await postedToysCollections.find(query).limit(limit) .toArray();
+            res.send(result);
+        });
+
+
+       //in mytoy section only users email  
+
 
         app.post('/toys', async (req, res) => {
             const body = req.body;
@@ -55,14 +69,11 @@ async function run() {
             console.log(result);
         });
         // insert add a toy using form 
-        app.get('/toys', async (req, res) => {
-            const limit = parseInt(req.query.limit) || 20;
-            const cursor = postedToysCollections.find().limit(limit);
-            const result = await cursor.toArray();
-            res.send(result);
-        });
+        
 
-        // show add toy in all toy 
+
+
+        
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
