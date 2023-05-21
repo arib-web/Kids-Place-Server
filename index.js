@@ -25,7 +25,7 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+        // await client.connect();
 
         const catagoryCollections = client.db('kidsPlace').collection('catagorys');
         const postedToysCollections = client.db('kidsPlace').collection('toys');
@@ -51,13 +51,13 @@ async function run() {
             if (req.query?.seller_email) {
                 query = { seller_email: req.query.seller_email }
             }
-            const limit = parseInt(req.query.limit) || 20; 
-            const result = await postedToysCollections.find(query).limit(limit) .toArray();
+            const limit = parseInt(req.query.limit) || 20;
+            const result = await postedToysCollections.find(query).limit(limit).toArray();
             res.send(result);
         });
 
 
-       //in mytoy section only users email  
+        //in mytoy section only users email  
 
 
         app.post('/toys', async (req, res) => {
@@ -68,40 +68,47 @@ async function run() {
             console.log(result);
         });
         // insert add a toy using form 
-        
+
         app.delete('/toys/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
-          
+
             // Fetch the document before deleting it
             const deletedToy = await postedToysCollections.findOne(query);
-          
+
             // Delete the document
             const result = await postedToysCollections.deleteOne(query);
-          
-            if (result.deletedCount === 1) {
-              // Send the deleted document as the response
-              res.send(deletedToy);
-            } else {
-              res.status(404).send({ message: 'Toy not found' });
-            }
-          });
 
-          app.patch('/toys/:id', async (req, res) => {
+            if (result.deletedCount === 1) {
+                // Send the deleted document as the response
+                res.send(deletedToy);
+            } else {
+                res.status(404).send({ message: 'Toy not found' });
+            }
+        });
+
+        app.patch('/toys/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: new ObjectId(id) };
             const updatedToys = req.body;
-            console.log(updatedToys);
             const updateDoc = {
                 $set: {
-                    status: updatedToys.status
+                    photo: updatedToys.photo,
+                    rating: updatedToys.rating,
+                    price: updatedToys.price,
+                    toy_name: updatedToys.toy_name,
+                    quantity: updatedToys.quantity,
+                    description: updatedToys.description,
+                    sub_category: updatedToys.sub_category
                 },
             };
             const result = await postedToysCollections.updateOne(filter, updateDoc);
             res.send(result);
-        })
-        
-          app.delete('/toys/:id', async (req, res) => {
+        });
+
+
+
+        app.delete('/toys/:id', async (req, res) => {
             console.log(req.params.id);
             const id = req.params.id;
             const query = { _id: new ObjectId(id) }
@@ -113,7 +120,7 @@ async function run() {
 
 
 
-        
+
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
