@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 const port = process.env.PORT || 5000;
 
@@ -47,7 +47,6 @@ async function run() {
         });
 
         app.get('/toys', async (req, res) => {
-            console.log(req.query?.seller_email);
             let query = {};
             if (req.query?.seller_email) {
                 query = { seller_email: req.query.seller_email }
@@ -70,6 +69,47 @@ async function run() {
         });
         // insert add a toy using form 
         
+        app.delete('/toys/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+          
+            // Fetch the document before deleting it
+            const deletedToy = await postedToysCollections.findOne(query);
+          
+            // Delete the document
+            const result = await postedToysCollections.deleteOne(query);
+          
+            if (result.deletedCount === 1) {
+              // Send the deleted document as the response
+              res.send(deletedToy);
+            } else {
+              res.status(404).send({ message: 'Toy not found' });
+            }
+          });
+
+          app.patch('/toys/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) };
+            const updatedToys = req.body;
+            console.log(updatedToys);
+            const updateDoc = {
+                $set: {
+                    status: updatedToys.status
+                },
+            };
+            const result = await postedToysCollections.updateOne(filter, updateDoc);
+            res.send(result);
+        })
+        
+          app.delete('/toys/:id', async (req, res) => {
+            console.log(req.params.id);
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
+            console.log(query);
+            const result = await postedToysCollections.deleteOne(query);
+            res.send(result);
+        })
+
 
 
 
